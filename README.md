@@ -1,29 +1,67 @@
-# Queue_System
-初始化：
-- 设置到达率 λ (顾客每小时到达的数量)
-- 设置服务率 μ (每小时服务的顾客数量)
-- 初始化一个空队列
-- 初始化当前时间为 0
-- 初始化等待时间为 0
+# Queue_System For M/M/1
+initialization:
+    - Set arrival rate λ (number of customers arriving per hour)
+    - Set service rate μ (number of customers served per hour)
+    - Initialize an empty queue
+    - Initialize the current time to 0
+    - Initialize wait time to 0
+    - Initialize service end time to 0 (time when the current service will be completed)
 
-循环直到模拟结束：
-
-    1. 计算下一个顾客到达的时间（根据泊松分布）
+Loop until simulation ends:
+    1. Calculate the arrival time of the next customer using exponential distribution with rate λ.
     
-    2. 如果队列为空：
+    2. If the queue is empty and current time >= service end time:
+          - The next customer goes directly to the service window.
+          - Calculate the service end time for this customer using current time + service duration (from exponential distribution with rate μ).
+       otherwise:
+          - Add the next customer to the queue.
     
-         - 将顾客直接送到服务窗口
-         - 计算服务结束时间（根据指数分布）
-       否则：
-         - 将顾客加入队列
-    3. 如果服务结束时间 <= 下一个顾客到达的时间：
-         - 从队列中移除服务完成的顾客
-         - 如果队列不为空：
-             - 服务队列中的下一个顾客
-             - 更新服务结束时间
-    4. 更新当前时间
-    5. 记录等待时间和队列长度等数据
+    3. If the current time >= service end time and the queue is not empty:
+          - Remove the next customer from the queue.
+          - Calculate the service end time for this customer using current time + service duration.
+          - Calculate the wait time for this customer (current time - arrival time).
+          - Accumulate the wait time to calculate the average later.
+    
+    4. Update current time to the arrival time of the next customer.
+    
+    5. Record data such as waiting time and queue length.
 
-计算总结统计数据：
-- 计算平均等待时间
-- 计算平均队列长度
+Calculate summary statistics:
+    - Calculate average waiting time.
+    - Calculate average queue length.
+    - Calculate server utilization.
+
+
+# Queue_System For M/G/1
+initialization:
+    - Set arrival rate λ (number of customers arriving per hour)
+    - Define the service time distribution (could be any general distribution)
+    - Initialize an empty queue
+    - Initialize the current time to 0
+    - Initialize wait time to 0
+    - Initialize service end time to 0 (time when the current service will be completed)
+
+Loop until simulation ends:
+    1. Calculate the arrival time of the next customer using exponential distribution with rate λ.
+
+    2. If the queue is empty and current time >= service end time:
+          - The next customer goes directly to the service window.
+          - Calculate the service end time for this customer using current time + service duration (from the general distribution).
+       otherwise:
+          - Add the next customer to the queue.
+    
+    3. If the current time >= service end time and the queue is not empty:
+          - Remove the next customer from the queue.
+          - Calculate the service end time for this customer using current time + service duration (from the general distribution).
+          - Calculate the wait time for this customer (current time - arrival time).
+          - Accumulate the wait time to calculate the average later.
+
+    4. Update current time to the arrival time of the next customer or to the service end time if it comes first.
+    
+    5. Record data such as waiting time, queue length, and service times.
+
+Calculate summary statistics:
+    - Calculate average waiting time.
+    - Calculate average queue length.
+    - Calculate server utilization.
+    - Analyze the distribution of service times.
