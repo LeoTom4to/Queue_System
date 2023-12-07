@@ -1,8 +1,9 @@
 # Queue_System For M/M/1
+
 initialization:
   - Set arrival rate λ (number of customers arriving per hour)
   - Set service rate μ (number of customers served per hour)
-  -  Initialize an empty queue
+  - Initialize an empty queue
   - Initialize the current time to 0
   - Initialize wait time to 0
   - Initialize service end time to 0 (time when the current service will be completed)
@@ -33,6 +34,8 @@ Calculate summary statistics:
 
 
 # Queue_System For M/G/1
+
+
 initialization:
     - Set arrival rate λ (number of customers arriving per hour)
     - Define the service time distribution (could be any general distribution)
